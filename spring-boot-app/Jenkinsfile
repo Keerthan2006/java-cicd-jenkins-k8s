@@ -16,15 +16,14 @@ pipeline {
                 sh 'cd spring-boot-app && mvn test'
             }
         }
-        stage('Static code analysis') {
-            environment {
-                SONAR_URL = 'https://172.22.0.1 :9000'
-            }
+        stage('Static Code Analysis') {
             steps {
-                withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_TOKEN')]) {
-                    sh "cd spring-boot-app && mvn sonar:sonar -Dsonar.host.url=${SONAR_URL} -Dsonar.login=${SONAR_TOKEN}"
+                withSonarQubeEnv('sonarqube-server') {
+                    dir('spring-boot-app') {
+                    sh 'mvn clean verify sonar:sonar'
+                 }
                 }
-            }
+             }
         }
     }
 }
