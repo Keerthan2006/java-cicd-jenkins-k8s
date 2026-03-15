@@ -6,17 +6,16 @@ pipeline {
         }
     }
     stages {
-        stage('Checkout'){
-            steps{
-                git branch: 'main',
-                    url: 'https://github.com/Keerthan2006/java-cicd-jenkins-k8s.git'
+        stage('Build Stage') {
+            steps {
+                sh 'cd spring-boot-app && mvn clean package -DskipTests'
             }
         }
-        stage('example'){
-            steps{
-                echo 'testing the file'
-                sh 'whoami'
+        stage('Test Stage') {
+            steps {
+                sh 'cd spring-boot-app && mvn test'
             }
         }
     }
+
 }
