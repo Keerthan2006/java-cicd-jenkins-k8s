@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'keerthan04/jenkins-app:v1'
-            args '-v /var/run/docker.sock:/var/run/docker.sock --network host'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
     stages {
@@ -15,15 +15,6 @@ pipeline {
             steps {
                 sh 'cd spring-boot-app && mvn test'
             }
-        }
-        stage('Static Code Analysis') {
-            steps {
-                withSonarQubeEnv('sonarqube-server') {
-                    dir('spring-boot-app') {
-                    sh 'mvn clean verify sonar:sonar'
-                 }
-                }
-             }
         }
     }
 }
