@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'keerthan04/jenkins-app:v1'
-            args '-v /var/run/docker.sock:/var/run/docker.sock'
+            args '-v /var/run/docker.sock:/var/run/docker.sock --network host'
         }
     }
     stages {
