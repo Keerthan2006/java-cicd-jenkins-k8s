@@ -5,10 +5,16 @@ pipeline {
             args '--user root -v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
-
     stages {
-        stage('Example') {
-            steps {
+        stage{'Checkout'}{
+            steps{
+                git branch: 'main',
+                    url: 'https://github.com/Keerthan2006/java-cicd-jenkins-k8s.git'
+            }
+        }
+        stage('example'){
+            steps{
+                echo 'testing the file'
                 sh 'whoami'
             }
         }
