@@ -1,0 +1,27 @@
+pipeline {
+
+    agent {
+        docker {
+            image 'maven:3.8.4-openjdk-17'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
+        }
+    }
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build') {
+            steps {
+                dir('spring-boot-app') {
+                    sh 'mvn clean package -DskipTests'
+                }
+            }
+        }
+
+    }
+}
