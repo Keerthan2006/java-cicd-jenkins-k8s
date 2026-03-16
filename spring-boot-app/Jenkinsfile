@@ -38,6 +38,31 @@ pipeline {
                 }
             }
         }
+        environment {
+            DOCKER_IMAGE = 'keerthan04/java-spring-app'
+            TAG_NAME = "${BUILD_NUMBER}"
+        }
+        stage('Docker Build') {
+            steps {
+                dir('spring-boot-app') {
+                    sh "docker build -t ${DOCKER_IMAGE}:${TAG_NAME} ."
+                }
+            }
+        }
+        stage('Docker Push') {
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'docker-hub',
+                    usernameVariable: 'DOCKER_USERNAME',
+                    passwordVariable: 'DOCKER_PASSWORD'
+                )
+                ])
+                {
+                    sh "echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin"
+                    sh "docker push ${DOCKER_IMAGE}:${TAG_NAME}"
+                }
+            }
+        }
 
     }
 }
