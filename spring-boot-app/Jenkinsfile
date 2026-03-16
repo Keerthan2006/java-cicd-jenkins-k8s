@@ -6,6 +6,10 @@ pipeline {
             args '--network spring-boot-app_jenkins-sonar -v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
+    environment {
+        DOCKER_IMAGE = 'keerthan04/java-spring-app'
+        TAG_NAME = "${BUILD_NUMBER}"
+    }
 
     stages {
 
@@ -38,10 +42,7 @@ pipeline {
                 }
             }
         }
-        environment {
-            DOCKER_IMAGE = 'keerthan04/java-spring-app'
-            TAG_NAME = "${BUILD_NUMBER}"
-        }
+
         stage('Docker Build') {
             steps {
                 dir('spring-boot-app') {
