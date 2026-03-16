@@ -1,6 +1,6 @@
 services:
   jenkins:
-    image: jenkins/jenkins:lts
+    image: keerthan04/my-jenkins:01
     container_name: jenkins
     ports:
       - "8080:8080"
