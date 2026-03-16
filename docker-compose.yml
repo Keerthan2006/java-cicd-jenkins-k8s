@@ -1,6 +1,6 @@
 services:
   jenkins:
-    image: keerthan04/jenkins-spring:01 
+    image: keerthan04/jenkins-master:01 
     container_name: jenkins
     ports:
       - 8080:8080
