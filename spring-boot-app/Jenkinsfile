@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'keerthan04/jenkins-app:v1'
+            image 'keerthan04/jenkins-agent:01'
             args '-v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
