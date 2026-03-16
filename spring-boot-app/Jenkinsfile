@@ -5,16 +5,30 @@ pipeline {
             args '-v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
+
     stages {
-        stage('Build') {
-            steps{
-                sh 'cd spring-boot-app && mvn clean package -DskipTests'
+
+        stage('Checkout') {
+            steps {
+                checkout scm
             }
         }
+
+        stage('Build') {
+            steps {
+                dir('spring-boot-app') {
+                    sh 'mvn clean package -DskipTests'
+                }
+            }
+        }
+
         stage('Test') {
             steps {
-                sh 'cd spring-boot-app && mvn test'
+                dir('spring-boot-app') {
+                    sh 'mvn test'
+                }
             }
         }
+
     }
 }
