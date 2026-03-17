@@ -2,7 +2,7 @@ pipeline {
 
     agent {
         docker {
-            image 'maven:3.8.4-openjdk-17'
+            image 'keerthan04/jenkins-agent:01'
             args '--network spring-boot-app_jenkins-sonar -v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
