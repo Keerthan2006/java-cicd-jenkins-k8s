@@ -64,6 +64,32 @@ pipeline {
                 }
             }
         }
+        stage('Update Helm Values') {
+            steps {
+                sed -i "s/tag:.*/tag: ${BUILD_NUMBER}/" helm/helm-k8s-manifests/values.yaml
+            }
+        }
+        stage('Commit changes to Github'){
+            steps{
+                    withCredentials([usernamePassword(
+                        credentialsId: 'github-app',
+                        usernameVariable: 'GITHUB_USERNAME',
+                        passwordVariable: 'GITHUB_TOKEN'
+                    ),
+                    string(credentialsId: 'mail-id', variable: 'GITHUB_EMAIL')
+                    ])
+                {
+                    sh '''
+                    git config --global user.name "${GITHUB_USERNAME}"
+                    git config --global user.email "${GITHUB_EMAIL}"
+                    git add helm/helm-k8s-manifests/values.yaml
+                    git commit -m "Update Helm values with new image tag ${BUILD_NUMBER}"
+                    git push https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/${GITHUB_USERNAME}/java-cicd-jenkins-k8s.git HEAD:main
+                    '''
+                }
+ 
+            }
+        }
 
     }
 }
