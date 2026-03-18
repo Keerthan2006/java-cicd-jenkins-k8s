@@ -66,7 +66,9 @@ pipeline {
         }
         stage('Update Helm Values') {
             steps {
+                sh '''
                 sed -i "s/tag:.*/tag: ${BUILD_NUMBER}/" helm/helm-k8s-manifests/values.yaml
+                '''
             }
         }
         stage('Commit changes to Github'){
