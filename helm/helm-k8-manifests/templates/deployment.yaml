@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: spring-app-container
-        image: keerthan04/java-spring-app:{{ .Values.image.tag }}
+        image: keerthan04/java-sprig-app:{{ .Values.image.tag }}
         ports:
         - containerPort: 8080
