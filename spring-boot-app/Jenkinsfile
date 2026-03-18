@@ -84,7 +84,7 @@ pipeline {
                     sh '''
                     git config --global user.name "${GITHUB_USERNAME}"
                     git config --global user.email "${GITHUB_EMAIL}"
-                    git add helm/helm-k8s-manifests/values.yaml
+                    git add helm/helm-k8-manifests/values.yaml
                     git commit -m "Update Helm values with new image tag ${BUILD_NUMBER}"
                     git push https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/${GITHUB_USERNAME}/java-cicd-jenkins-k8s.git HEAD:main
                     '''
