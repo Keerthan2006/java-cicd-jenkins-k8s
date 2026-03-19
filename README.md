@@ -12,8 +12,7 @@ This setup reflects a real-world DevOps workflow where CI and CD responsibilitie
 
 ## 🏗️ End-to-End Workflow
 
-- A developer pushes code to the GitHub repository  
-- GitHub triggers Jenkins using a webhook  
+- A developer pushes code to the GitHub repository   
 - Jenkins starts the CI pipeline  
 - The latest source code is fetched  
 - The application is built  
@@ -44,7 +43,6 @@ This setup reflects a real-world DevOps workflow where CI and CD responsibilitie
 - **Application Source Code** – Contains the main application  
 - **Dockerfile** – Builds the container image  
 - **Kubernetes Manifests / Helm Charts** – Define deployment configuration  
-- **GitOps Repository** – Stores Kubernetes or Helm configurations used by Argo CD  
 
 ---
 
